@@ -16,6 +16,7 @@
 <script lang="ts">
 import { defineComponent, ref, watch, Ref } from 'vue'
 import useClickOutside from '@/hooks/useClickOutside'
+import { useRoute } from 'vue-router'
 
 export default defineComponent({
   name: 'DropDown',
@@ -29,6 +30,7 @@ export default defineComponent({
     const isOpen = ref(false)
     const dropdownRef: Ref<HTMLElement | null> = ref(null)
     const isClickOutside = useClickOutside(dropdownRef)
+    const route = useRoute()
     const toggleOpen = () => {
       isOpen.value = !isOpen.value
     }
@@ -36,6 +38,9 @@ export default defineComponent({
       if (isClickOutside.value && isOpen.value) {
         isOpen.value = false
       }
+    })
+    watch(route, () => {
+      isOpen.value = false
     })
     return {
       isOpen,

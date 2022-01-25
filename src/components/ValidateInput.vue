@@ -1,9 +1,13 @@
 <template>
   <div class="validate-input-container pb-3">
-    <label class="form-label" :for="`${label || ''}${Date.now()}`">{{
-      label || ''
-    }}</label>
+    <label
+      class="form-label"
+      v-if="label"
+      :for="`${label || ''}${Date.now()}`"
+      >{{ label || '' }}</label
+    >
     <input
+      v-if="tag !== 'textarea'"
       class="form-control"
       :class="{ 'is-invalid': inputRef.error }"
       :value="inputRef.val"
@@ -12,6 +16,16 @@
       @blur="validateInput"
       v-bind="$attrs"
     />
+    <textarea
+      v-else
+      class="form-control"
+      :class="{ 'is-invalid': inputRef.error }"
+      :value="inputRef.val"
+      :id="`${label || ''}${Date.now()}`"
+      @input="updateVal"
+      @blur="validateInput"
+      v-bind="$attrs"
+    ></textarea>
     <div
       id="validationServerUsernameFeedback"
       class="invalid-feedback"
@@ -36,13 +50,18 @@ export interface RuleProp {
   message: string
 }
 export type RulesProp = RuleProp[]
+export type TagType = 'input' | 'email' | 'textarea'
 const emailReg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*.\w+([-.]\w+)*$/
 export default defineComponent({
   name: 'ValidateInput',
   props: {
     rules: Array as PropType<RulesProp>,
     modelValue: String,
-    label: String
+    label: String,
+    tag: {
+      type: String as PropType<TagType>,
+      default: 'input'
+    }
   },
   inheritAttrs: false,
   setup(props, { emit }) {
