@@ -25,8 +25,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, Ref } from 'vue'
-import ColumnList, { ColumnProps } from '../components/ColumnList.vue'
+import { computed, defineComponent, onMounted, Ref } from 'vue'
+import ColumnList from '../components/ColumnList.vue'
 import { useStore } from 'vuex'
 import { GlobalDataProps } from '@/store'
 
@@ -37,7 +37,10 @@ export default defineComponent({
   },
   setup() {
     const store = useStore<GlobalDataProps>()
-    const list: Ref<ColumnProps[]> = computed(() => store.state.columns)
+    onMounted(() => {
+      store.dispatch('fetchColumns')
+    })
+    const list = computed(() => store.state.columns)
     const loadMorePage = () => ({})
     const isLastPage = false
     return {
