@@ -36,6 +36,7 @@ import ValidateForm from '@/components/ValidateForm.vue'
 import { useStore } from 'vuex'
 import { GlobalDataProps } from '@/store'
 import { useRouter } from 'vue-router'
+import createMessage from '@/components/createMessage'
 
 export default defineComponent({
   name: 'Login',
@@ -44,8 +45,8 @@ export default defineComponent({
     ValidateForm
   },
   setup() {
-    const email = ref('')
-    const password = ref('')
+    const email = ref('111@test.com')
+    const password = ref('111111')
     const store = useStore<GlobalDataProps>()
     const router = useRouter()
     const emailRules: RulesProp = [
@@ -59,11 +60,23 @@ export default defineComponent({
       email.value = ''
       password.value = ''
     }
-    const onFormSubmit = (valid: boolean) => {
-      clear()
+    const onFormSubmit = async (valid: boolean) => {
       if (valid) {
-        store.commit('login')
-        router.push({ name: 'home' })
+        const payload = {
+          email: email.value,
+          password: password.value
+        }
+        store
+          .dispatch('loginAndFetch', payload)
+          .then(() => {
+            createMessage('登录成功,2秒后跳转首页', 'success')
+            setTimeout(() => {
+              router.push({ name: 'home' })
+            }, 2000)
+          })
+          .catch((e) => {
+            clear()
+          })
       }
     }
     return {

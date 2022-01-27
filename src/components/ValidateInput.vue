@@ -11,7 +11,6 @@
       class="form-control"
       :class="{ 'is-invalid': inputRef.error }"
       :value="inputRef.val"
-      :id="`${label || ''}${Date.now()}`"
       @input="updateVal"
       @blur="validateInput"
       v-bind="$attrs"
@@ -21,7 +20,6 @@
       class="form-control"
       :class="{ 'is-invalid': inputRef.error }"
       :value="inputRef.val"
-      :id="`${label || ''}${Date.now()}`"
       @input="updateVal"
       @blur="validateInput"
       v-bind="$attrs"
@@ -46,8 +44,9 @@ import {
 } from 'vue'
 import { emitter } from '@/components/ValidateForm.vue'
 export interface RuleProp {
-  type: 'required' | 'email'
+  type: 'required' | 'email' | 'custom'
   message: string
+  validator?: () => boolean
 }
 export type RulesProp = RuleProp[]
 export type TagType = 'input' | 'email' | 'textarea'
@@ -89,6 +88,9 @@ export default defineComponent({
               break
             case 'email':
               passed = emailReg.test(inputRef.val)
+              break
+            case 'custom':
+              passed = rule.validator ? rule.validator() : true
               break
             default:
               break

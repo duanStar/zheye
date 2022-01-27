@@ -3,9 +3,10 @@ import http from '@/utils/http'
 
 export interface UserProps {
   isLogin: boolean;
-  name?: string;
-  id?: number;
-  columnId?: number;
+  nickName?: string;
+  _id?: string;
+  column?: symbol;
+  email?: string;
 }
 
 export interface ImageProps {
@@ -31,17 +32,25 @@ export interface PostProps {
   createdAt: string;
   column: string;
 }
+
+export interface GlobalErrorProps {
+  status: boolean;
+  message?: string;
+}
 export interface GlobalDataProps {
+  token: string;
   columns: ColumnProps[];
   posts: PostProps[];
   user: UserProps;
   loading: boolean;
+  error: GlobalErrorProps;
 }
 
 interface WithAvatarProps {
   avatar?: ImageProps;
   image?: ImageProps;
 }
+
 function imagerPolyfill<T extends WithAvatarProps>(list: T[], key: 'avatar' | 'image', width: number, height: number) {
   return list.map((item: T) => {
     if (!item[key]) {
@@ -59,25 +68,35 @@ function imagerPolyfill<T extends WithAvatarProps>(list: T[], key: 'avatar' | 'i
 async function getAndCommit(url: string, mutationName: string, commit: Commit) {
   const data = await http.get(url)
   commit(mutationName, data)
+  return data
+}
+
+async function postAndCommit(url: string, mutationName: string, commit: Commit, payload: any) {
+  return http.post(url, payload).then(data => {
+    commit(mutationName, data)
+    return data
+  })
 }
 
 const store = createStore<GlobalDataProps>({
   state: {
+    token: localStorage.getItem('token') || '',
     loading: false,
     columns: [],
     posts: [],
     user: {
       isLogin: false
+    },
+    error: {
+      status: false
     }
   },
   mutations: {
-    login(state) {
-      state.user = {
-        ...state.user,
-        isLogin: true,
-        name: 'zs',
-        id: 1
-      }
+    login(state, rawData) {
+      const { token } = rawData.data
+      state.token = token
+      http.defaults.headers.common.Authorization = `Bearer ${token}`
+      localStorage.setItem('token', token)
     },
     fetchColumns(state, rawData) {
       state.columns = imagerPolyfill(rawData.data.list, 'avatar', 50, 50)
@@ -88,8 +107,17 @@ const store = createStore<GlobalDataProps>({
     fetchPosts(state, rawData) {
       state.posts = imagerPolyfill(rawData.data.list, 'image', 200, 110)
     },
+    fetchCurrentUser(state, rawData) {
+      state.user = {
+        isLogin: true,
+        ...rawData.data
+      }
+    },
     setLoading(state, status) {
       state.loading = status
+    },
+    setError(state, e: GlobalErrorProps) {
+      state.error = e
     }
   },
   actions: {
@@ -101,6 +129,17 @@ const store = createStore<GlobalDataProps>({
     },
     fetchPosts({ commit }, cid: string) {
       getAndCommit(`/api/columns/${cid}/posts?currentPage=1&pageSize=5`, 'fetchPosts', commit)
+    },
+    fetchCurrentUser({ commit }) {
+      getAndCommit('/api/user/current', 'fetchCurrentUser', commit)
+    },
+    login({ commit }, payload) {
+      return postAndCommit('/api/user/login', 'login', commit, payload)
+    },
+    loginAndFetch({ dispatch }, payload) {
+      return dispatch('login', payload).then(() => {
+        return dispatch('fetchCurrentUser')
+      })
     }
   },
   getters: {

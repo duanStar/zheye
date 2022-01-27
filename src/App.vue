@@ -17,11 +17,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, Ref } from 'vue'
-import GlobalHeader, { UserProps } from '@/components/GlobalHeader.vue'
+import { computed, defineComponent, onMounted, Ref, watch } from 'vue'
+import GlobalHeader from '@/components/GlobalHeader.vue'
 import Loader from '@/components/Loader.vue'
 import { useStore } from 'vuex'
-import { GlobalDataProps } from './store'
+import { GlobalDataProps, UserProps } from './store'
+import createMessage from '@/components/createMessage'
 
 export default defineComponent({
   name: 'App',
@@ -33,9 +34,20 @@ export default defineComponent({
     const store = useStore<GlobalDataProps>()
     const currentUser: Ref<UserProps> = computed(() => store.state.user)
     const loading = computed(() => store.state.loading)
+    const error = computed(() => store.state.error)
+    watch(
+      () => error.value.status,
+      () => {
+        const { status, message } = error.value
+        if (status && message) {
+          createMessage(message, 'error', 2000)
+        }
+      }
+    )
     return {
       currentUser,
-      loading
+      loading,
+      error
     }
   }
 })
