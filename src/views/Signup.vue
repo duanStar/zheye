@@ -37,6 +37,9 @@
           :rules="repeatPasswordRules"
           v-model="formData.repeatPassword"
         />
+        <div class="form-text">
+          <a href="/login" class="">已经有账户了？去登录</a>
+        </div>
       </div>
       <template #submit>
         <button type="submit" class="btn btn-primary btn-block btn-large">
@@ -122,5 +125,9 @@ export default defineComponent({
 <style>
 .w-330 {
   max-width: 330px;
+}
+.btn-block {
+  display: block;
+  width: 100%;
 }
 </style>

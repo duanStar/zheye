@@ -19,6 +19,9 @@
           :rules="passwordRules"
           v-model="password"
         />
+        <div class="form-text">
+          <a href="/signup" class="">还没有账户？去注册一个新的吧！</a>
+        </div>
       </div>
       <template #submit>
         <button type="submit" class="btn btn-primary btn-block btn-large">
@@ -90,3 +93,10 @@ export default defineComponent({
   }
 })
 </script>
+
+<style scoped>
+.btn-block {
+  display: block;
+  width: 100%;
+}
+</style>

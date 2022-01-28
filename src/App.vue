@@ -1,5 +1,8 @@
 <template>
-  <div class="container h-100 d-flex flex-column">
+  <div
+    class="container-fluid px-0 flex-shrink-0 h-100 d-flex"
+    style="flex-direction: column"
+  >
     <GlobalHeader :user="currentUser" />
     <Loader :text="'拼命加载中'" background="rgba(0,0,0,0.8)" v-if="loading" />
     <router-view></router-view>
@@ -7,9 +10,14 @@
       <small>
         <ul class="list-inline mb-0">
           <li class="list-inline-item">©2022 者也专栏</li>
-          <li class="list-inline-item">文档</li>
-          <li class="list-inline-item">联系</li>
-          <li class="list-inline-item">更多</li>
+          <li class="list-inline-item">| 滇ICP备2021007435号</li>
+          <li class="list-inline-item">
+            |&nbsp;
+            <a href="http://api.vikingship.xyz/" target="_blank">
+              API 在线调试</a
+            >
+          </li>
+          <li class="list-inline-item">| 更多</li>
         </ul>
       </small>
     </footer>

@@ -190,6 +190,24 @@
   "resolved" "https://registry.nlark.com/@types/json5/download/@types/json5-0.0.29.tgz"
   "version" "0.0.29"
 
+"@types/linkify-it@*":
+  "integrity" "sha1-/SzS7bqn6qx+fzwXSLUqGRQ4Rsk="
+  "resolved" "https://registry.npmmirror.com/@types/linkify-it/download/@types/linkify-it-3.0.2.tgz"
+  "version" "3.0.2"
+
+"@types/markdown-it@^12.2.3":
+  "integrity" "sha1-DW9uXkE/jaqiZSKQRZe+PWzZO1E="
+  "resolved" "https://registry.npmmirror.com/@types/markdown-it/download/@types/markdown-it-12.2.3.tgz"
+  "version" "12.2.3"
+  dependencies:
+    "@types/linkify-it" "*"
+    "@types/mdurl" "*"
+
+"@types/mdurl@*":
+  "integrity" "sha1-4s6dg6YTus8oTHvn1JGUXjnh+Ok="
+  "resolved" "https://registry.npmmirror.com/@types/mdurl/download/@types/mdurl-1.0.2.tgz"
+  "version" "1.0.2"
+
 "@types/mime@^1":
   "integrity" "sha1-k+Jb+e51/g/YC1lLxP6w6GIRG1o="
   "resolved" "https://registry.npmmirror.com/@types/mime/download/@types/mime-1.3.2.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40types%2Fmime%2Fdownload%2F%40types%2Fmime-1.3.2.tgz"
@@ -940,6 +958,11 @@
   "version" "1.0.10"
   dependencies:
     "sprintf-js" "~1.0.2"
+
+"argparse@^2.0.1":
+  "integrity" "sha1-JG9Q88p4oyQPbJl+ipvR6sSeSzg="
+  "resolved" "https://registry.npmmirror.com/argparse/download/argparse-2.0.1.tgz"
+  "version" "2.0.1"
 
 "arr-diff@^4.0.0":
   "integrity" "sha1-1kYQdP6/7HHn4VI1dhoyml3HxSA="
@@ -2683,6 +2706,11 @@
   "integrity" "sha1-CY3JDruD2N/6CJ1VJWs1HTTE2lU="
   "resolved" "https://registry.nlark.com/entities/download/entities-2.2.0.tgz?cache=0&sync_timestamp=1628508126700&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fentities%2Fdownload%2Fentities-2.2.0.tgz"
   "version" "2.2.0"
+
+"entities@~2.1.0":
+  "integrity" "sha1-mS0xKc999ocLlsV4WMJJoSD4uLU="
+  "resolved" "https://registry.npmmirror.com/entities/download/entities-2.1.0.tgz"
+  "version" "2.1.0"
 
 "errno@^0.1.3", "errno@~0.1.7":
   "integrity" "sha1-i7Ppx9Rjvkl2/4iPdrSAnrwugR8="
@@ -4697,6 +4725,13 @@
   "resolved" "https://registry.npmmirror.com/lines-and-columns/download/lines-and-columns-1.2.4.tgz"
   "version" "1.2.4"
 
+"linkify-it@^3.0.1":
+  "integrity" "sha1-qYuvRM5FpVDvtNScdp0HUkzC+i4="
+  "resolved" "https://registry.npmmirror.com/linkify-it/download/linkify-it-3.0.3.tgz"
+  "version" "3.0.3"
+  dependencies:
+    "uc.micro" "^1.0.1"
+
 "loader-fs-cache@^1.0.0":
   "integrity" "sha1-8IZXZG1gcHi+LwoDL4vWndbyd9k="
   "resolved" "https://registry.nlark.com/loader-fs-cache/download/loader-fs-cache-1.0.3.tgz"
@@ -4864,6 +4899,17 @@
   dependencies:
     "object-visit" "^1.0.0"
 
+"markdown-it@^12.3.2":
+  "integrity" "sha512-TchMembfxfNVpHkbtriWltGWc+m3xszaRD0CZup7GFFhzIgQqxIfn3eGj1yZpfuflzPvfkt611B2Q/Bsk1YnGg=="
+  "resolved" "https://registry.npmmirror.com/markdown-it/download/markdown-it-12.3.2.tgz"
+  "version" "12.3.2"
+  dependencies:
+    "argparse" "^2.0.1"
+    "entities" "~2.1.0"
+    "linkify-it" "^3.0.1"
+    "mdurl" "^1.0.1"
+    "uc.micro" "^1.0.5"
+
 "md5.js@^1.3.4":
   "integrity" "sha512-xitP+WxNPcTTOgnTJcrhM0xvdPepipPSf3I8EIpGKeFLjt3PlJLIDG3u8EX53ZIubkb+5U2+3rELYpEhHhzdkg=="
   "resolved" "https://registry.npmmirror.com/md5.js/download/md5.js-1.3.5.tgz"
@@ -4882,6 +4928,11 @@
   "integrity" "sha1-aZs8OKxvHXKAkaZGULZdOIUC/Vs="
   "resolved" "https://registry.npmmirror.com/mdn-data/download/mdn-data-2.0.4.tgz"
   "version" "2.0.4"
+
+"mdurl@^1.0.1":
+  "integrity" "sha1-/oWy7HWlkDfyrf7BAP1sYBdhFS4="
+  "resolved" "https://registry.npmmirror.com/mdurl/download/mdurl-1.0.1.tgz"
+  "version" "1.0.1"
 
 "media-typer@0.3.0":
   "integrity" "sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g="
@@ -7656,6 +7707,11 @@
   "integrity" "sha512-pxnwLxeb/Z5SP80JDRzVjh58KsM6jZHRAOtTpS7sXLS4ogXNKC9ANxHHZqLLeVHZN35jCtI4JdmLLbLiC1kBow=="
   "resolved" "https://registry.npmmirror.com/typescript/download/typescript-4.1.6.tgz"
   "version" "4.1.6"
+
+"uc.micro@^1.0.1", "uc.micro@^1.0.5":
+  "integrity" "sha1-nEEagCpAmpH8bPdAgbq6NLJEmaw="
+  "resolved" "https://registry.npmmirror.com/uc.micro/download/uc.micro-1.0.6.tgz"
+  "version" "1.0.6"
 
 "uglify-js@3.4.x":
   "integrity" "sha1-mtlWPY6zrN+404WX0q8dgV9qdV8="
