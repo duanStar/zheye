@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, Ref, watch } from 'vue'
+import { computed, defineComponent, Ref, watch } from 'vue'
 import GlobalHeader from '@/components/GlobalHeader.vue'
 import Loader from '@/components/Loader.vue'
 import { useStore } from 'vuex'

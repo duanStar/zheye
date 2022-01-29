@@ -7,12 +7,11 @@
             <h5 class="modal-title">{{ title }}</h5>
             <button
               type="button"
-              class="close"
+              class="btn-close"
               data-dismiss="modal"
               aria-label="Close"
-            >
-              <span aria-hidden="true" @click="onClose">&times;</span>
-            </button>
+              @click="onClose"
+            ></button>
           </div>
           <div class="modal-body">
             <slot></slot>
@@ -64,3 +63,15 @@ export default defineComponent({
   }
 })
 </script>
+
+<style scoped>
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+</style>

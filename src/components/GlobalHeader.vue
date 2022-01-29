@@ -23,6 +23,11 @@
               >
             </DropDownItem>
             <DropDownItem>
+              <router-link :to="`/column/${user.column}`" class="dropdown-item"
+                >我的专栏</router-link
+              >
+            </DropDownItem>
+            <DropDownItem>
               <router-link to="#" class="dropdown-item">编辑资料</router-link>
             </DropDownItem>
             <DropDownItem>

@@ -19,7 +19,7 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 import { UserProps } from '../store'
-import { addColumnAvatar } from '@/utils/helper'
+// import { addColumnAvatar } from '@/utils/helper'
 export default defineComponent({
   props: {
     user: {
@@ -29,7 +29,7 @@ export default defineComponent({
   },
   setup(props) {
     const fitUrl = computed(() => {
-      addColumnAvatar(props.user, 50, 50)
+      // addColumnAvatar(props.user, 50, 50)
       const { avatar } = props.user
       return avatar && avatar.url
     })

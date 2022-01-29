@@ -8,18 +8,16 @@
       <span>{{ message }}</span>
       <button
         type="button"
-        class="close"
+        class="btn-close"
         aria-label="Close"
         @click.prevent="hide"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
+      ></button>
     </div>
   </teleport>
 </template>
 
 <script lang="ts">
-import { defineComponent, onUnmounted, PropType, ref } from 'vue'
+import { defineComponent, PropType, ref } from 'vue'
 import useDOMCreate from '../hooks/useDOMCreate'
 export type MessageType = 'success' | 'error' | 'default'
 export default defineComponent({

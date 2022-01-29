@@ -4,6 +4,7 @@
     <Uploader
       action="/api/upload"
       :beforeUpload="uploadCheck"
+      :uploaded="uploadedData"
       class="d-flex align-items-center justify-content-center bg-light text-secondary w-100 my-4"
       @file-uploaded="handleFileUploaded"
       @file-upload-error="onFileUploadError"
@@ -68,6 +69,7 @@ export default defineComponent({
     Uploader
   },
   setup() {
+    const uploadedData = ref()
     const titleVal = ref('')
     const route = useRoute()
     const router = useRouter()
@@ -82,6 +84,16 @@ export default defineComponent({
     let imageId = ''
     onMounted(() => {
       if (isEditMode) {
+        store
+          .dispatch('fetchPost', route.query.id)
+          .then((rawData: ResponseType<PostProps>) => {
+            const currentPost = rawData
+            if (currentPost.data.image) {
+              uploadedData.value = currentPost.data.image
+            }
+            titleVal.value = currentPost.data.title
+            contentVal.value = currentPost.data.content || ''
+          })
       }
     })
     const handleFileUploaded = (rawData: ResponseType<ImageProps>) => {
@@ -91,6 +103,7 @@ export default defineComponent({
     const onFileUploadError = () => {
       createMessage('上传图片失败', 'error')
     }
+    /* eslint-disable */
     const onFormSubmit = (result: boolean) => {
       if (result) {
         const { column, _id } = store.state.user
@@ -104,7 +117,14 @@ export default defineComponent({
           if (imageId) {
             newPost.image = imageId
           }
-          store.dispatch('createPost', newPost).then(() => {
+          const actionName = isEditMode ? 'updatePost' : 'createPost'
+          const sendData = isEditMode
+            ? {
+                id: route.query.id,
+                payload: newPost
+              }
+            : newPost
+          store.dispatch(actionName, sendData).then(() => {
             createMessage('发表成功,2s后跳转到文章', 'success', 2000)
             setTimeout(() => {
               router.push({ name: 'column', params: { id: column } })
@@ -136,7 +156,8 @@ export default defineComponent({
       isEditMode,
       uploadCheck,
       handleFileUploaded,
-      onFileUploadError
+      onFileUploadError,
+      uploadedData
     }
   }
 })

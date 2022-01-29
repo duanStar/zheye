@@ -113,6 +113,7 @@ export default defineComponent({
         return false
       }
     })
+
     const currentImageUrl = computed(() => {
       if (currentPost.value && currentPost.value.image) {
         const { image } = currentPost.value

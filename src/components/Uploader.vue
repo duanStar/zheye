@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import http from '@/utils/http'
-import { defineComponent, PropType, ref } from 'vue'
+import { defineComponent, PropType, ref, watch } from 'vue'
 type UploadStatus = 'ready' | 'loading' | 'success' | 'error'
 type CheckFunction = (file: File) => boolean
 
@@ -52,13 +52,20 @@ export default defineComponent({
   emits: ['file-uploaded', 'file-upload-error'],
   setup(props, { emit }) {
     const fileInput = ref<null | HTMLInputElement>(null)
-    const fileStatus = ref<UploadStatus>('ready')
-    const uploadedData = ref()
+    const fileStatus = ref<UploadStatus>(props.uploaded ? 'success' : 'ready')
+    const uploadedData = ref(props.uploaded)
     const triggerUpload = () => {
       if (fileInput.value) {
         fileInput.value.click()
       }
     }
+    watch(
+      () => props.uploaded,
+      () => {
+        fileStatus.value = props.uploaded ? 'success' : 'ready'
+        uploadedData.value = props.uploaded
+      }
+    )
     const handleFileChange = (e: Event) => {
       const currentTarget = e.target as HTMLInputElement
       if (currentTarget.files) {
