@@ -17,6 +17,14 @@
       </div>
     </div>
     <PostList :list="list" />
+    <button
+      class="btn btn-outline-primary mt-2 mb-5 mx-auto btn-block w-25 d-block"
+      @click="loadMorePage"
+      v-if="!isLastPage"
+      type="button"
+    >
+      加载更多
+    </button>
   </div>
 </template>
 
@@ -26,30 +34,47 @@ import { useRoute } from 'vue-router'
 import PostList from '@/components/PostList.vue'
 import { useStore } from 'vuex'
 import { GlobalDataProps } from '@/store'
+import useLoadMore from '@/hooks/useLoadMore'
 
 export default defineComponent({
   name: 'ColumnDetail',
   components: { PostList },
   setup() {
     const route = useRoute()
-    const currentId = route.params.id
+    const currentId = route.params.id as string
     const store = useStore<GlobalDataProps>()
     onMounted(() => {
       store.dispatch('fetchColumn', currentId)
-      store.dispatch('fetchPosts', currentId)
+      store.dispatch('fetchPosts', {
+        cid: currentId,
+        currentPage: 1,
+        pageSize: 6
+      })
     })
     const column = computed(() => store.getters.getColumnById(currentId))
-    // column.value.avatar = {
-    //   ...column.value.avatar,
-    //   url: column.value.avatar?.url
-    //     ? column.value.avatar?.url +
-    //       '?x-oss-process=image/resize,m_pad,h_50,w_50'
-    //     : require('@/assets/column.jpg')
-    // }
     const list = computed(() => store.getters.getPostsByCId(currentId))
+    const total = computed(
+      () => store.state.posts.loadedColumns[currentId]?.total
+    )
+    const currentPage = computed(
+      () => store.state.posts.loadedColumns[currentId]?.currentPage
+    )
+    const { loadMorePage, isLastPage } = useLoadMore(
+      'fetchPosts',
+      total,
+      {
+        currentPage: currentPage.value ? currentPage.value + 1 : 2,
+        pageSize: 5
+      },
+      {
+        cid: currentId
+      }
+    )
     return {
       list,
-      column
+      column,
+      loadMorePage,
+      isLastPage
     }
   }
 })
