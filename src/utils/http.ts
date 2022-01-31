@@ -2,7 +2,7 @@ import axios from 'axios'
 import store from '@/store'
 
 const http = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:8080' : 'http://duanhf.cn:8099/',
   timeout: 10 * 1000
 })
 
