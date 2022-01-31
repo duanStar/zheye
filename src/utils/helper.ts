@@ -43,4 +43,5 @@ export const addColumnAvatar: (data: UserProps, width: number, height: number) =
       url: require('@/assets/avatar.jpg')
     }
   }
+  return data.avatar
 }

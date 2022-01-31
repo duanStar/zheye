@@ -5,6 +5,7 @@ import ColumnDetail from '@/views/ColumnDetail.vue'
 import CreatePost from '@/views/CreatePost.vue'
 import Signup from '@/views/Signup.vue'
 import PostDetail from '@/views/PostDetail.vue'
+import UserDetail from '@/views/UserDetail.vue'
 import store from '@/store'
 import http from './utils/http'
 
@@ -44,6 +45,11 @@ const router = createRouter({
       path: '/posts/:id',
       name: 'post',
       component: PostDetail
+    },
+    {
+      path: '/edit',
+      name: 'edit',
+      component: UserDetail
     }
   ]
 })

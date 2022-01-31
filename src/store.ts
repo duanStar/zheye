@@ -163,6 +163,15 @@ const store = createStore<GlobalDataProps>({
     },
     deletePost(state, { data }) {
       delete state.posts.data[data._id]
+    },
+    updateUser(state, { data }) {
+      state.user = {
+        ...state.user,
+        ...data
+      }
+    },
+    updateColumn(state, { data }) {
+      state.columns.data[data._id] = data
     }
   },
   actions: {
@@ -228,6 +237,18 @@ const store = createStore<GlobalDataProps>({
     },
     deletePost({ commit }, id) {
       return asyncAndCommit(`/api/posts/${id}`, 'deletePost', commit, { method: 'delete' })
+    },
+    updateUser({ commit }, payload) {
+      return asyncAndCommit(`/api/user/${payload._id}`, 'updateUser', commit, {
+        method: 'patch',
+        data: payload
+      })
+    },
+    updateColumn({ commit }, payload) {
+      return asyncAndCommit(`/api/columns/${payload._id}`, 'updateColumn', commit, {
+        method: 'patch',
+        data: payload
+      })
     }
   },
   getters: {

@@ -28,7 +28,9 @@
               >
             </DropDownItem>
             <DropDownItem>
-              <router-link to="#" class="dropdown-item">编辑资料</router-link>
+              <router-link to="/edit" class="dropdown-item"
+                >编辑资料</router-link
+              >
             </DropDownItem>
             <DropDownItem>
               <router-link
